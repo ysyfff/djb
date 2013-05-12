@@ -11,14 +11,13 @@ import datetime
 #     html = "<html><body>It is now %s.</body></html>" % now
 #     return HttpResponse(html)
 
-def hello(request):
+def hello():
     name = 'ysyong'
-    t = get_template('hello.html')
-    html = t.render(Context({'name': name}))
-    return HttpResponse(html)
+    time = "now"
+    return name, time
 
 def current_datetime(request):
-    name = 'ysyong'
+    name, time = hello()
     current_date = datetime.datetime.now()
     t = get_template('current_datetime.html')
     html = t.render(Context(locals()))
@@ -29,6 +28,7 @@ def hours_ahead(request, offset):
         hour_offset = int(offset)
     except ValueError:
         raise Http404()
+    name, time = hello()
     next_time = datetime.datetime.now() + datetime.timedelta(hours=hour_offset)
     t = get_template('future_datetime.html')
     html = t.render(Context(locals()))
