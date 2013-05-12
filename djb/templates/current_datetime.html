@@ -1,2 +1,17 @@
-{% include "hello.html" %}
-<html><body>It is now {{ current_date }}.</body></html>
+{% extends "hello.html"%}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- {% include "hello.html" %} -->
+{% block other%}
+<html lang="en">
+<head>
+    <title>The current time</title>
+</head>
+<body>
+    <h3>My helpful timestamp site</h3>
+    <p>It is now {{ current_date }}.</p>
+
+    <hr>
+    <p>Thanks for visiting my site.</p>
+</body>
+</html>
+{%endblock%}

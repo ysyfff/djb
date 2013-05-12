@@ -26,9 +26,19 @@ def current_datetime(request):
 
 def hours_ahead(request, offset):
     try:
-        offset = int(offset)
+        hour_offset = int(offset)
     except ValueError:
         raise Http404()
-    dt = datetime.datetime.now() + datetime.timedelta(hours=offset)
-    html = "<html><body>In %s hours(s), it will be %s.</body></html>" % (offset, dt)
+    next_time = datetime.datetime.now() + datetime.timedelta(hours=offset)
+    t = get_template('future_datetime.html')
+    html = t.render(Context(locals()))
     return HttpResponse(html)
+
+# def hours_ahead(request, offset):
+#     try:
+#         offset = int(offset)
+#     except ValueError:
+#         raise Http404()
+#     dt = datetime.datetime.now() + datetime.timedelta(hours=offset)
+#     html = "<html><body>In %s hours(s), it will be %s.</body></html>" % (offset, dt)
+#     return HttpResponse(html)
