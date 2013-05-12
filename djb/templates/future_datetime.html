@@ -1,8 +1,13 @@
-{% extends "base.html" %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>Future time</title>
+</head>
+<body>
+    <h3>My helpful timestamp site</h3>
+    <p>In {{ hour_offset }} hour(s), it will be {{ next_time }}.</p>
 
-{% block title %}Future time{% endblock %}
-
-{% block content %}
-{% include "hello.html"%}
-<p>In {{ hour_offset }} hour(s), it will be {{ next_time }}.</p>
-{% endblock %}
+    <hr>
+    <p>Thanks for visiting my site.</p>
+</body>
+</html>
