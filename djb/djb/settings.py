@@ -1,4 +1,8 @@
 # Django settings for djb project.
+import os
+_ROOT_PATH = os.path.join(os.path.dirname(__file__), '..')
+_REAL_ROOT_PATH = os.path.realpath(_ROOT_PATH)
+get_path = lambda x: os.path.join(_REAL_ROOT_PATH, x)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -108,6 +112,7 @@ ROOT_URLCONF = 'djb.urls'
 WSGI_APPLICATION = 'djb.wsgi.application'
 
 TEMPLATE_DIRS = (
+    get_path('templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
