@@ -29,7 +29,7 @@ def hours_ahead(request, offset):
         hour_offset = int(offset)
     except ValueError:
         raise Http404()
-    next_time = datetime.datetime.now() + datetime.timedelta(hours=offset)
+    next_time = datetime.datetime.now() + datetime.timedelta(hours=hour_offset)
     t = get_template('future_datetime.html')
     html = t.render(Context(locals()))
     return HttpResponse(html)
