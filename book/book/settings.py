@@ -1,4 +1,4 @@
-# Django settings for djb2 project.
+# Django settings for book project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -83,7 +83,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '3k5y2g^^n4ij184=9hdj$z3ak!1xh!ifhflpx=chx++ghr!zjs'
+SECRET_KEY = 'i_d*8vt6efb5-+d-za41e+scxuozi&nd#m9f7yg!b#)&y*%)d0'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -102,10 +102,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'djb2.urls'
+ROOT_URLCONF = 'book.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'djb2.wsgi.application'
+WSGI_APPLICATION = 'book.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
