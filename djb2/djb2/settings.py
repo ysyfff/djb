@@ -1,8 +1,4 @@
-# Django settings for djb project.
-import os
-_ROOT_PATH = os.path.join(os.path.dirname(__file__), '..')
-_REAL_ROOT_PATH = os.path.realpath(_ROOT_PATH)
-get_path = lambda x: os.path.join(_REAL_ROOT_PATH, x)
+# Django settings for djb2 project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -15,11 +11,11 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'djb',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'root',
-        'PASSWORD': '123456',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -87,7 +83,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '97s2ch)%vti^$4@2@xfd3xx1#^gwfgz-bbn&8u=(ud#6fs*znb'
+SECRET_KEY = '3k5y2g^^n4ij184=9hdj$z3ak!1xh!ifhflpx=chx++ghr!zjs'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -106,13 +102,12 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'djb.urls'
+ROOT_URLCONF = 'djb2.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'djb.wsgi.application'
+WSGI_APPLICATION = 'djb2.wsgi.application'
 
 TEMPLATE_DIRS = (
-    get_path('templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
