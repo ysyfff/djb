@@ -17,6 +17,10 @@ class BookAdmin(admin.ModelAdmin):
     raw_id_fields = ('publisher',)
 
 
-admin.site.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    search_fields = ('title',)
+
+
+admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Book, BookAdmin)
