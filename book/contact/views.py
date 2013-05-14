@@ -35,16 +35,14 @@ def send_html_mail(subject, html_content, recipient_list):
     msg.content_subtype="html"
     msg.send()
 
-subject="SWUST OJ"
-html_content=loader.render_to_string(
-    'send_mail.html',{}
-    )
-recipient_list=['1156546473@qq.com']
-
-
 def html_send(request):
+    subject="SWUST OJ"
+    html_content=loader.render_to_string(
+        'send_mail.html',{}
+        )
+    recipient_list=['1156546473@qq.com']
     send_html_mail(subject, html_content, recipient_list)
-    return HttpResponse("OK, Success!")
+    return render(request, 'send_mail.html', {})
 
 
 
