@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^search/$', 'books.views.search'),
     url(r'^contact/$', 'contact.views.contact'),
+    url(r'^html_send/$', 'contact.views.html_send'),
 )

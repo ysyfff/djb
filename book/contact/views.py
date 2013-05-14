@@ -2,6 +2,7 @@ from django.shortcuts import render
 from contact.forms import ContactForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.mail import send_mail, BadHeaderError
+from book.settings import EMAIL_HOST_USER
 
 def contact(request):
     if request.method == 'POST':
@@ -12,7 +13,7 @@ def contact(request):
                 send_mail(
                     cd['subject'],
                     cd['message'],
-                     'swust_oj@163.com',
+                     EMAIL_HOST_USER,
                     ['1156546473@qq.com','swust_oj@163.com'],
                     fail_silently=False
                 )
@@ -25,3 +26,25 @@ def contact(request):
             initial={'subject': 'I love your site!'}
         )
     return render(request, 'contact_form.html', {'form': form})
+
+from django.template import loader
+from django.core.mail import EmailMessage
+
+def send_html_mail(subject, html_content, recipient_list):
+    msg = EmailMessage(subject, html_content, EMAIL_HOST_USER, recipient_list)
+    msg.content_subtype="html"
+    msg.send()
+
+subject="SWUST OJ"
+html_content=loader.render_to_string(
+    'send_mail.html',{}
+    )
+recipient_list=['1156546473@qq.com']
+
+
+def html_send(request):
+    send_html_mail(subject, html_content, recipient_list)
+    return HttpResponse("OK, Success!")
+
+
+
