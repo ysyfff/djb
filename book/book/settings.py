@@ -5,6 +5,8 @@ _ROOT_PATH = os.path.join(os.path.dirname(__file__), '..')
 _REAL_ROOT_PATH = os.path.realpath(_ROOT_PATH)
 get_path = lambda x: os.path.join(_REAL_ROOT_PATH, x)
 
+EMAIL_HOST = 'localhost'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
