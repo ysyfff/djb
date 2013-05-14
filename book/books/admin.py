@@ -13,6 +13,8 @@ class BookAdmin(admin.ModelAdmin):
     date_hierarchy = 'publication_date'
     ordering = ('-publication_date',)
 
+    filter_horizontal = ('authors',)
+
 
 admin.site.register(Publisher)
 admin.site.register(Author, AuthorAdmin)
