@@ -18,7 +18,7 @@ class BookAdmin(admin.ModelAdmin):
 
 
 class PublisherAdmin(admin.ModelAdmin):
-    search_fields = ('title',)
+    search_fields = ('name',)
 
 
 admin.site.register(Publisher, PublisherAdmin)
