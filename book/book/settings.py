@@ -5,7 +5,12 @@ _ROOT_PATH = os.path.join(os.path.dirname(__file__), '..')
 _REAL_ROOT_PATH = os.path.realpath(_ROOT_PATH)
 get_path = lambda x: os.path.join(_REAL_ROOT_PATH, x)
 
-EMAIL_HOST = 'localhost'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = '25'  
+EMAIL_HOST_USER = 'swust_oj@163.com'
+EMAIL_HOST_PASSWORD = 'SWUSTloco123'
+EMAIL_USE_TLS = True
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
