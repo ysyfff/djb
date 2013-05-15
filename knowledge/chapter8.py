@@ -66,5 +66,62 @@ page() will use whatever num value was captured by the regular expression.
 #-----------------The use of default views arguments------------------------#
 
 
+# # urls.py
+# from django.conf.urls.defaults import *
+# from mysite import views
+
+# urlpatterns = patterns('',
+#     # ...
+#     (r'^somepage/$', views.some_page),
+#     # ...
+# )
+
+# # views.py
+# from django.http import Http404, HttpResponseRedirect
+# from django.shortcuts import render
+
+# def some_page(request):
+#     if request.method == 'POST':
+#         do_something_for_post()
+#         return HttpResponseRedirect('/someurl/')
+#     elif request.method == 'GET':
+#         do_something_for_get()
+#         return render(request, 'page.html')
+#     else:
+#         raise Http404()
+
+# urls.py
+from django.conf.urls.defaults import *
+from mysite import views
+
+urlpatterns = patterns('',
+    # ...
+    (r'^somepage/$', views.method_splitter,
+        {'GET': views.some_page_get,'POST': views.some_page_post}),
+    # ...
+)
+
+# views.py
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render
+
+def method_splitter(request, GET=None, POST=None):
+    if request.method == 'GET' and GET is not None:
+        return GET(request)
+    elif request.method == 'POST' and POST is not None:
+        return POST(request)
+    raise Http404
+
+def some_page_get(request):
+    assert request.method == 'GET'
+    do_something_for_get()
+    return render(request, 'page.html')
+
+def some_page_post(request):
+    assert request.method == 'POST'
+    do_something_for_post()
+    return HttpResponseRedirect('/someurl/')
+
+#----------------The use of method_splitter in views------------------------#
 
 
