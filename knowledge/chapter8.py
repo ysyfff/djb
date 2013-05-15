@@ -1,3 +1,4 @@
+#-----------------The use of extra keyword in urlconf--------------------------#
 # # urls.py
 # from django.conf.urls.defaults import *
 # from mysite import views
@@ -39,6 +40,7 @@ def foobar_view(request, template_name):
 #-----------------The use of extra keyword in urlconf--------------------------#
 
 
+#-----------------The use of default views arguments------------------------#
 # urls.py
 
 from django.conf.urls.defaults import *
@@ -66,6 +68,8 @@ page() will use whatever num value was captured by the regular expression.
 #-----------------The use of default views arguments------------------------#
 
 
+
+#----------------The use of method_splitter in views------------------------#
 # # urls.py
 # from django.conf.urls.defaults import *
 # from mysite import views
@@ -101,6 +105,7 @@ urlpatterns = patterns('',
     # ...
 )
 
+
 # views.py
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
@@ -123,5 +128,55 @@ def some_page_post(request):
     return HttpResponseRedirect('/someurl/')
 
 #----------------The use of method_splitter in views------------------------#
+def method_splitter(request, *args, **kwargs):
+    get_view = kwargs.pop('GET', None)
+    post_view = kwargs.pop('POST', None)
+    if request.method == 'GET' and get_view is not None:
+        return get_view(request, *args, **kwargs)
+    elif request.method == 'POST' and post_view is not None:
+        return post_view(request, *args, **kwargs)
+    raise Http404
+#----------------The use of method_splitter in views------------------------#
 
 
+
+#----------------The use of requires_login(function)--------------------------#
+# def my_view1(request):
+#     if not request.user.is_authenticated():
+#         return HttpResponseRedirect('/accounts/login/')
+#     # ...
+#     return render(request, 'template1.html')
+
+# def my_view2(request):
+#     if not request.user.is_authenticated():
+#         return HttpResponseRedirect('/accounts/login/')
+#     # ...
+#     return render(request, 'template2.html')
+
+# def my_view3(request):
+#     if not request.user.is_authenticated():
+#         return HttpResponseRedirect('/accounts/login/')
+#     # ...
+#     return render(request, 'template3.html')
+
+def requires_login(view):
+    def new_view(request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect('/accounts/login/')
+        return view(request, *args, **kwargs)
+    return new_view
+
+from django.conf.urls.defaults import *
+from mysite.views import requires_login, my_view1, my_view2, my_view3
+
+urlpatterns = patterns('',
+    (r'^view1/$', requires_login(my_view1)),
+    (r'^view2/$', requires_login(my_view2)),
+    (r'^view3/$', requires_login(my_view3)),
+)
+'''
+Now, we can remove the if not request.user.is_authenticated()
+checks from our views and simply 
+wrap them with requires_login in our URLconf:
+'''
+#----------------The use of requires_login(function)--------------------------#
