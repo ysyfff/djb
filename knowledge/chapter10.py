@@ -58,3 +58,25 @@ With this manager in place, we can now do this:
 4
 >>> Book.objects.title_count('python')
 18
+
+
+Modifying Initial Manager QuerySets:::::::::::::::::::::::::::::::::::
+class MaleManager(models.Manager):
+    def get_query_set(self):
+        return super(MaleManager, self).get_query_set().filter(sex='M')
+
+class FemaleManager(models.Manager):
+    def get_query_set(self):
+        return super(FemaleManager, self).get_query_set().filter(sex='F')
+
+class Person(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    sex = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')))
+    people = models.Manager()
+    men = MaleManager()
+    women = FemaleManager()
+
+Person.men.all()
+Person.women.all()
+Person.people.all()
