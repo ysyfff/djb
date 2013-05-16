@@ -28,3 +28,33 @@ It works in reverse, too. To view all of the books for an author, use author.boo
 >>> a = Author.objects.get(first_name='Adrian', last_name='Holovaty')
 >>> a.book_set.all()
 [<Book: The Django Book>, <Book: Adrian's Other Book>]
+
+
+Adding Extra Manager Methods:::::::::::::::::::::::::::::::::::::::::
+# models.py
+
+from django.db import models
+
+# ... Author and Publisher models here ...
+
+class BookManager(models.Manager):
+    def title_count(self, keyword):
+        return self.filter(title__icontains=keyword).count()
+
+class Book(models.Model):
+    title = models.CharField(max_length=100)
+    authors = models.ManyToManyField(Author)
+    publisher = models.ForeignKey(Publisher)
+    publication_date = models.DateField()
+    num_pages = models.IntegerField(blank=True, null=True)
+    objects = BookManager()
+
+    def __unicode__(self):
+        return self.title
+
+With this manager in place, we can now do this:
+
+>>> Book.objects.title_count('django')
+4
+>>> Book.objects.title_count('python')
+18
