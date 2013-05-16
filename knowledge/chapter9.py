@@ -134,3 +134,38 @@ For example, if your custom tags/filters are in a file called poll_extras.py,
 you’d write the following in a template:
 {% load poll_extras %}
 #-------------create a template library----------------------------------------#
+
+
+#-------------Extends the template system--------------------------------------#
+'''
+THE MEHTOD OF EXTENDING THE TEMPLATE SYSTEM:
+IN TEMPLATES's models(such as 'poll_extras.py') WRITE LIKE THIS:
+'''
+Writing Custom Template Filters:
+Custom filters are just Python functions that take one or two arguments:
+The value of the variable (input)
+The value of the argument, which can have a default value or be left out altogether.
+
+For example, in the filter {{ var|foo:"bar" }},
+the filter foo would be passed the contents of the variable var and the argument "bar".
+
+#example
+from django import template
+
+register = template.Library()
+
+#function 1
+@register.filter(name='cut')
+def cut(value, arg):
+    return value.replace(arg, '')
+
+#function 2
+@register.filter
+def lower(value):
+    return value.lower()
+
+
+
+
+
+
