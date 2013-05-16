@@ -116,6 +116,37 @@ publisher_info = {
     'template_object_name': 'publisher',
     'extra_context': {'book_list': Book.objects.all}
 }
+'''
+Notice the lack of parentheses after Book.objects.all. 
+This references the function without actually calling it 
+(which the generic view will do later).
+'''
+
+Complex Filtering with Wrapper Functions::::::::::::::::::::::::::::::::::::::::::
+urlpatterns = patterns('',
+    (r'^publishers/$', list_detail.object_list, publisher_info),
+    (r'^books/(\w+)/$', books_by_publisher),
+)
+
+from django.shortcuts import get_object_or_404
+from django.views.generic import list_detail
+from mysite.books.models import Book, Publisher
+
+def books_by_publisher(request, name):
+
+    # Look up the publisher (and raise a 404 if it can't be found).
+    publisher = get_object_or_404(Publisher, name__iexact=name)
+
+    # Use the object_list view for the heavy lifting.
+    return list_detail.object_list(
+        request,
+        queryset = Book.objects.filter(publisher=publisher),
+        template_name = 'books/books_by_publisher.html',
+        template_object_name = 'book',
+        extra_context = {'publisher': publisher}
+    )
+
+
 
 
 
