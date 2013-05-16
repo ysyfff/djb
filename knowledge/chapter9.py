@@ -141,6 +141,7 @@ you’d write the following in a template:
 THE MEHTOD OF EXTENDING THE TEMPLATE SYSTEM:
 IN TEMPLATES's models(such as 'poll_extras.py') WRITE LIKE THIS:
 '''
+#---------------------------------------------------------------------------#
 Writing Custom Template Filters:
 Custom filters are just Python functions that take one or two arguments:
 The value of the variable (input)
@@ -163,6 +164,62 @@ def cut(value, arg):
 @register.filter
 def lower(value):
     return value.lower()
+#---------------------------------------------------------------------------#
+#---------------------------------------------------------------------------#
+Writing Custom Template Tags:
+
+example, consider this template:
+
+Hello, {{ person.name }}.
+{% ifequal name.birthday today %}
+    Happy birthday!
+{% else %}
+    Be sure to come back on your birthday
+    for a splendid surprise message.
+{% endifequal %}
+In compiled template form, this template is represented as this list of nodes:
+
+Text node: "Hello, "
+Variable node: person.name
+Text node: ".\n\n"
+IfEqual node: name.birthday and today
+
+When you call render() on a compiled template, 
+the template calls render() on each Node in its node list, 
+with the given context. 
+The results are all concatenated together to form the output of the template. 
+Thus, to define a custom template tag, 
+you specify how the raw template tag is converted into a Node 
+(the compilation function) and what the node’s render() method does.
+
+
+The parser for this function should grab the parameter and create a Node object:::::::::::::::::
+
+from django import template
+register = template.Library()
+
+@register.tag(name="current_time")
+def do_current_time(parser, token):
+    try:
+        # split_contents() knows not to split quoted strings.
+        tag_name, format_string = token.split_contents()
+    except ValueError:
+        msg = '%r tag requires a single argument' % token.split_contents()[0]
+        raise template.TemplateSyntaxError(msg)
+    return CurrentTimeNode(format_string[1:-1])
+
+Writing the Template Node::::::::::::::::::::::
+import datetime
+class CurrentTimeNode(template.Node):
+    def __init__(self, format_string):
+        self.format_string = str(format_string)
+
+    def render(self, context):
+        now = datetime.datetime.now()
+        return now.strftime(self.format_string)
+
+#---------------------------------------------------------------------------#
+
 
 
 
