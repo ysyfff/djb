@@ -112,3 +112,13 @@ class Person(models.Model):
         return u'%s %s' % (self.first_name, self.last_name)
     full_name = property(_get_full_name)
 
+>>> p = Person.objects.get(first_name='Barack', last_name='Obama')
+>>> p.birth_date
+datetime.date(1961, 8, 4)
+>>> p.baby_boomer_status()
+'Baby boomer'
+>>> p.is_midwestern()
+True
+>>> p.full_name  # Note this isn't a method -- it's treated as an attribute
+u'Barack Obama'
+
