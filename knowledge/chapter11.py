@@ -67,3 +67,35 @@ while the “publisher” bit is just the lowercased version of the model’s na
     </ul>
 {% endblock %}
 
+
+Making “Friendly” Template Contexts:::::::::::::::::::::::::::::::::::::::::::::::::
+'''
+You might have noticed that sample publisher list template stores 
+all the books in a variable named object_list. 
+While this works just fine, 
+it isn’t all that “friendly” to template authors: 
+they have to “just know” that they’re dealing with books here. 
+A better name for that variable would be publisher_list; 
+that variable’s content is pretty obvious.
+'''
+from django.conf.urls.defaults import *
+from django.views.generic import list_detail
+from mysite.books.models import Publisher
+
+publisher_info = {
+    'queryset': Publisher.objects.all(),
+    'template_name': 'publisher_list_page.html',
+    'template_object_name': 'publisher',
+}
+
+urlpatterns = patterns('',
+    (r'^publishers/$', list_detail.object_list, publisher_info)
+)
+In the template, 
+the generic view will append _list to the template_object_name 
+to create the variable name representing the list of items.
+i.e.:publisher_list
+
+
+
+
