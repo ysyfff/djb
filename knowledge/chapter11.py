@@ -97,5 +97,26 @@ to create the variable name representing the list of items.
 i.e.:publisher_list
 
 
+Adding Extra Context::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#bad
+publisher_info = {
+    'queryset': Publisher.objects.all(),
+    'template_object_name': 'publisher',
+    'extra_context': {'book_list': Book.objects.all()}
+}
+'''
+This would populate a {{ book_list }} variable in the template context. 
+This pattern can be used to pass any information down into the template for the generic view. 
+It’s very handy.
+'''
+
+#good
+publisher_info = {
+    'queryset': Publisher.objects.all(),
+    'template_object_name': 'publisher',
+    'extra_context': {'book_list': Book.objects.all}
+}
+
+
 
 
