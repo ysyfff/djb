@@ -103,3 +103,34 @@ This will not be escaped: {{ data|safe }}
 {% endautoescape %}
 
 #-------------The strong automatic Html escaping-------------------------------#
+
+
+#-------------create a template library----------------------------------------#
+Creating a template library is a two-step process:
+
+First, decide which Django application should house the template library. 
+If you’ve created an app via manage.py startapp, 
+you can put it in there, or you can create another app solely for the template library. 
+We’d recommend the latter, because your filters might be useful to you in future projects.
+
+Whichever route you take, make sure to add the app to your INSTALLED_APPS setting. 
+We’ll explain this shortly.
+
+Second, create a templatetags directory in the appropriate Django application’s package. 
+It should be on the same level as models.py, views.py, and so forth. For example:
+
+books/
+    __init__.py
+    models.py
+    templatetags/
+    views.py
+
+Create two empty files in the templatetags directory: 
+an __init__.py file (to indicate to Python that this is a package containing Python code) 
+and a file that will contain your custom tag/filter definitions. 
+The name of the latter file is what you’ll use to load the tags later. 
+
+For example, if your custom tags/filters are in a file called poll_extras.py, 
+you’d write the following in a template:
+{% load poll_extras %}
+#-------------create a template library----------------------------------------#
