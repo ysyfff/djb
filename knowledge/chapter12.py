@@ -85,3 +85,15 @@ MANAGERS = (
     ('George Harrison', 'gharrison@example.com'),
     ('Ringo Starr', 'ringo@example.com'),
 )
+
+DJANGO_SETTINGS_MODULE:::::::::::::::::::::::::::::::::::
+The instructions are different for each environment, 
+but one thing remains the same: in each case, 
+you will have to tell the Web server your DJANGO_SETTINGS_MODULE. 
+This is the entry point into your Django application. 
+The DJANGO_SETTINGS_MODULE points to your settings file, 
+which points to your ROOT_URLCONF, which points to your views, and so on.
+
+DJANGO_SETTINGS_MODULE is the Python path to your settings file. 
+For example, assuming the mysite directory is on your Python path, 
+the DJANGO_SETTINGS_MODULE for our ongoing example is 'mysite.settings'.
