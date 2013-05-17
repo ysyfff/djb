@@ -66,3 +66,22 @@ ADMINS = (
     ('John Lennon', 'jlennon@example.com'),
     ('Paul McCartney', 'pmacca@example.com'),
 )
+
+Second, make sure your server is configured to send e-mail. 
+Setting up postfix, sendmail or any other mail server is outside the scope of this book, 
+but on the Django side of things, 
+you’ll want to make sure your EMAIL_HOST setting is set to the proper hostname 
+for your mail server. It’s set to 'localhost' by default, 
+which works out of the box for most shared-hosting environments. 
+You might also need to set EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, 
+EMAIL_PORT or EMAIL_USE_TLS, depending on the complexity of your arrangement.
+
+Setting Up Broken Link Alerts::::::::::::::::::::::::::::
+set SEND_BROKEN_LINK_EMAILS to True (it’s False by default), 
+and set your MANAGERS setting to a person or people who will receive these broken-link e-mails. 
+MANAGERS uses the same syntax as ADMINS. For example:
+
+MANAGERS = (
+    ('George Harrison', 'gharrison@example.com'),
+    ('Ringo Starr', 'ringo@example.com'),
+)
