@@ -1,6 +1,13 @@
 # Django settings for book project.
 
 import os
+import socket
+
+if socket.gethostname() == 'y':
+    DEBUG = TEMPLATE_DEBUG = True
+else:
+    DEBUG = TEMPLATE_DEBUG = False
+
 _ROOT_PATH = os.path.join(os.path.dirname(__file__), '..')
 _REAL_ROOT_PATH = os.path.realpath(_ROOT_PATH)
 get_path = lambda x: os.path.join(_REAL_ROOT_PATH, x)
@@ -11,9 +18,6 @@ EMAIL_PORT = '25'
 EMAIL_HOST_USER = 'swust_oj@163.com'
 EMAIL_HOST_PASSWORD = 'SWUSTloco123'
 EMAIL_USE_TLS = True
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
