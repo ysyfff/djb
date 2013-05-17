@@ -26,5 +26,31 @@ To test that your 404.html is working,
 just change DEBUG to False and visit a nonexistent URL. 
 (This works on the runserver just as well as it works on a production server.)
 
+Implementing a 500 Template::::::::::::::::::::::::::
+Similarly, if DEBUG is False, 
+then Django no longer displays its useful error/traceback pages 
+in case of an unhandled Python exception. 
+Instead, it looks for a template called 500.html and renders it. 
+Like 404.html, this template should live in your root template directory.
+
+Therefore, the best approach is to avoid template 
+inheritance and use something very simple.
+Here’s an example 500.html as a starting point:
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <title>Page unavailable</title>
+</head>
+<body>
+    <h1>Page unavailable</h1>
+
+    <p>Sorry, but the requested page is unavailable due to a
+    server hiccup.</p>
+
+    <p>Our engineers have been notified, so check back later.</p>
+</body>
+</html>
 
 
