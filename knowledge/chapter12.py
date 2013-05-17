@@ -53,4 +53,16 @@ Here’s an example 500.html as a starting point:
 </body>
 </html>
 
+Setting Up Error Alerts::::::::::::::::::::::::::::::::
+Django is configured to send an e-mail to the site developers 
+whenever your code raises an unhandled exception 
+– but you need to do two things to set it up.
 
+First, change your ADMINS setting to include your e-mail address, 
+along with the e-mail addresses of any other people who need to be notified. 
+This setting takes a tuple of (name, email) tuples, like this:
+
+ADMINS = (
+    ('John Lennon', 'jlennon@example.com'),
+    ('Paul McCartney', 'pmacca@example.com'),
+)
